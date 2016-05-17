@@ -2,6 +2,7 @@ gulp = require('gulp')
 stylus = require('gulp-stylus')
 jade = require('gulp-jade')
 coffee = require('gulp-coffee')
+rename = require('gulp-rename')
 
 readTree = require('./readTree')
 
@@ -50,6 +51,10 @@ gulp.task 'jade', ->
 
     gulp.src('./jade/**/index.jade')
       .pipe(jade({pretty: true, data: {comparisons: comps, titleCase, getNamePart, fullLanguage}}))
+      .pipe(gulp.dest('./'))
+    gulp.src('./jade/cheatsheet.jade')
+      .pipe(jade({pretty: true, data: {comparisons: comps, titleCase, getNamePart, fullLanguage}}))
+      .pipe(rename({basename: 'You_Might_Not_Need_jQuery', extname: '.rb'}))
       .pipe(gulp.dest('./'))
 
 gulp.task 'default', ->

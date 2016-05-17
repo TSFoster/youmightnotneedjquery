@@ -1,0 +1,62 @@
+| cheatsheet do
+|   title 'You Might Not Need jQuery'
+|   docset_file_name 'You_Might_Not_Need_jQuery'
+|   keyword 'nojq'
+|   source_url 'http://cheat.kapeli.com'
+for comp in comparisons
+  |   category do
+  |     id '#{titleCase(comp.title)}'
+  if comp.comparison._alternatives
+    |     entry do
+    |       index_name '#{titleCase(comp.title)} Alternatives'
+    |       notes <<-'END'
+    |Alternatives: 
+    for alt in comp.comparison._alternatives.split('\n')
+      - var name = alt.substring(0, alt.indexOf(':'))
+      - var url = alt.substring(alt.indexOf(':') + 1)
+      |[#{name}](#{url}) 
+    |#{''}
+    |END
+    |#{''}
+    |     end
+  for co, name in comp.comparison
+    if name !== '_alternatives'
+      |     entry do
+      |       name '#{titleCase(name.replace(/_/g, ' '))}'
+      |       notes <<-'END'
+      |#{''}
+      if co.alternatives
+        |#{''}
+        |#{''}
+        |Alternatives: 
+        for alt in co.alternatives.txt.split('\n')
+          - var name = alt.substring(0, alt.indexOf(':'))
+          - var url = alt.substring(alt.indexOf(':') + 1)
+          |[#{name}](#{url}) 
+        |#{''}
+        |#{''}
+      for browser in ['jquery', 'ie8', 'ie9', 'ie10']
+        |#{''}
+        if co[browser] && co[browser]['js']
+          if browser === 'jquery'
+            |#### jQuery
+          else
+            |#### #{browser.toUpperCase()}+
+          |#{''}
+          |#{''}
+          |```javascript
+          |#{''}
+          |!{co[browser]['js']}
+          |#{''}
+          |```
+          |#{''}
+      |#{''}
+      |END
+      |     end
+  |#{''}
+  |   end
+|#{''}
+|   notes <<-'END'
+|     * Based on [github.com/HubSpot/youmightnotneedjquery](https://github.com/HubSpot/youmightnotneedjquery) ([License](https://github.com/HubSpot/youmightnotneedjquery/blob/gh-pages/LICENSE))
+|   END
+| end
